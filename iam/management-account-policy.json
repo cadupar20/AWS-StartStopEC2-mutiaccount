@@ -1,0 +1,52 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "OrganizationsReadAccounts",
+            "Effect": "Allow",
+            "Action": [
+                "organizations:ListAccounts",
+                "organizations:DescribeOrganization",
+                "organizations:DescribeAccount",
+                "organizations:ListTagsForResource"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "STSAssumeRoleCrossAccount",
+            "Effect": "Allow",
+            "Action": [
+                "sts:AssumeRole"
+            ],
+            "Resource": [
+                "arn:aws:iam::*:role/CCoE-EC2Scheduler-Role"
+            ]
+        },
+        {
+            "Sid": "SNSPublishNotifications",
+            "Effect": "Allow",
+            "Action": [
+                "sns:Publish"
+            ],
+            "Resource": "arn:aws:sns:*:*:CCoE-EC2Scheduler-*"
+        },
+        {
+            "Sid": "CloudWatchLogs",
+            "Effect": "Allow",
+            "Action": [
+                "logs:CreateLogGroup",
+                "logs:CreateLogStream",
+                "logs:PutLogEvents"
+            ],
+            "Resource": "arn:aws:logs:*:*:*"
+        },
+        {
+            "Sid": "EC2DescribeRegions",
+            "Effect": "Allow",
+            "Action": [
+                "ec2:DescribeRegions"
+            ],
+            "Resource": "*"
+        }
+    ]
+}

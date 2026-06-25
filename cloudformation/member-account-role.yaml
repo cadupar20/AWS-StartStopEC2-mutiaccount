@@ -1,0 +1,103 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: >
+  CCoE EC2 Scheduler - Cross-Account IAM Role for Member Accounts.
+  Deploy this via CloudFormation StackSets from the management account
+  to all target accounts in the organization.
+
+Parameters:
+  ManagementAccountId:
+    Type: String
+    Description: AWS Account ID of the Organizations management account
+    AllowedPattern: ^\d{12}$
+    ConstraintDescription: Must be a 12-digit AWS account ID
+
+  RoleName:
+    Type: String
+    Description: Name of the IAM role to create
+    Default: CCoE-EC2Scheduler-Role
+    AllowedPattern: ^[\w+=,.@-]+$
+    MaxLength: 64
+
+  ExternalId:
+    Type: String
+    Description: External ID for STS AssumeRole security
+    Default: CCoE-EC2Scheduler
+
+Resources:
+  # ──────────────────────────────────────────────
+  # IAM Role for Cross-Account Access
+  # ──────────────────────────────────────────────
+  SchedulerRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: !Ref RoleName
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              AWS: !Sub arn:aws:iam::${ManagementAccountId}:root
+            Action: sts:AssumeRole
+            Condition:
+              StringEquals:
+                sts:ExternalId: !Ref ExternalId
+      Tags:
+        - Key: Name
+          Value: !Ref RoleName
+        - Key: team
+          Value: ccoe
+        - Key: environment
+          Value: management
+        - Key: managed-by
+          Value: cloudformation-stacksets
+
+  # ──────────────────────────────────────────────
+  # IAM Policy for EC2 Management
+  # ──────────────────────────────────────────────
+  SchedulerPolicy:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyName: CCoE-EC2Scheduler-Policy
+      Roles:
+        - !Ref SchedulerRole
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Sid: EC2DescribeInstances
+            Effect: Allow
+            Action:
+              - ec2:DescribeInstances
+              - ec2:DescribeInstanceStatus
+              - ec2:DescribeTags
+              - ec2:DescribeRegions
+            Resource: '*'
+
+          - Sid: EC2ManageInstances
+            Effect: Allow
+            Action:
+              - ec2:StopInstances
+              - ec2:StartInstances
+            Resource: '*'
+            Condition:
+              StringEqualsIgnoreCase:
+                'aws:ResourceTag/environment':
+                  - sandbox
+                  - dev
+                  - desarrollo
+
+          - Sid: CloudWatchLogs
+            Effect: Allow
+            Action:
+              - logs:CreateLogGroup
+              - logs:CreateLogStream
+              - logs:PutLogEvents
+            Resource: arn:aws:logs:*:*:*
+
+Outputs:
+  RoleName:
+    Description: Name of the IAM role created
+    Value: !Ref SchedulerRole
+
+  RoleArn:
+    Description: ARN of the IAM role created
+    Value: !GetAtt SchedulerRole.Arn

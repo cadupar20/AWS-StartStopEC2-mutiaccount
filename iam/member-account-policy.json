@@ -1,0 +1,40 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "EC2DescribeInstances",
+            "Effect": "Allow",
+            "Action": [
+                "ec2:DescribeInstances",
+                "ec2:DescribeInstanceStatus",
+                "ec2:DescribeTags",
+                "ec2:DescribeRegions"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "EC2ManageInstances",
+            "Effect": "Allow",
+            "Action": [
+                "ec2:StopInstances",
+                "ec2:StartInstances"
+            ],
+            "Resource": "*",
+            "Condition": {
+                "StringEqualsIgnoreCase": {
+                    "aws:ResourceTag/environment": ["sandbox", "dev", "desarrollo"]
+                }
+            }
+        },
+        {
+            "Sid": "CloudWatchLogs",
+            "Effect": "Allow",
+            "Action": [
+                "logs:CreateLogGroup",
+                "logs:CreateLogStream",
+                "logs:PutLogEvents"
+            ],
+            "Resource": "arn:aws:logs:*:*:*"
+        }
+    ]
+}

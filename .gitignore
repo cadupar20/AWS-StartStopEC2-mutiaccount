@@ -1,0 +1,352 @@
+# ═══════════════════════════════════════════════════════════
+# CCoE EC2 Scheduler - .gitignore
+# ═══════════════════════════════════════════════════════════
+# Estándares: Python + Terraform + AWS + General
+# ═══════════════════════════════════════════════════════════
+
+
+# ═══════════════════════════════════════════════════════════
+# PYTHON
+# ═══════════════════════════════════════════════════════════
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+cover/
+
+# Translations
+*.mo
+*.pot
+
+# Django stuff:
+*.log
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+
+# Flask stuff:
+instance/
+.webassets-cache
+
+# Scrapy stuff:
+.scrapy
+
+# Sphinx documentation
+docs/_build/
+
+# PyBuilder
+.pybuilder/
+target/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# IPython
+profile_default/
+ipython_config.py
+
+# pyenv
+.python-version
+
+# pipenv
+Pipfile.lock
+
+# poetry
+poetry.lock
+
+# pdm
+.pdm.toml
+
+# PEP 582
+__pypackages__/
+
+# Celery stuff
+celerybeat-schedule
+celerybeat.pid
+
+# SageMath parsed files
+*.sage.py
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Spyder project settings
+.spyderproject
+.spyproject
+
+# Rope project settings
+.ropeproject
+
+# mkdocs documentation
+/site
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Pyre type checker
+.pyre/
+
+# pytype static type analyzer
+.pytype/
+
+# Cython debug symbols
+cython_debug/
+
+# IDLE
+*.pyc
+
+
+# ═══════════════════════════════════════════════════════════
+# TERRAFORM
+# ═══════════════════════════════════════════════════════════
+
+# Local .terraform directories (providers, modules cache)
+**/.terraform/
+
+# Terraform state files (.tfstate) — CONTIENEN SECRETOS
+# NUNCA committear .tfstate files
+*.tfstate
+*.tfstate.*
+
+# Terraform crash log files
+crash.log
+crash.*.log
+
+# Exclude all .tfvars files (sensitive variables)
+# Los .tfvars pueden contener secrets (access keys, etc.)
+*.tfvars
+*.tfvars.json
+
+# Override files (configuraciones locales de desarrollo)
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Terraform plan files (binarios, contienen secrets)
+*.tfplan
+
+# CLI configuration files
+.terraformrc
+terraform.rc
+
+# Provider lock file (opcional — recomendado mantenerlo en repo)
+# Descomentar si NO quieres trackear el lock file:
+# .terraform.lock.hcl
+
+
+# ═══════════════════════════════════════════════════════════
+# AWS / CLOUD
+# ═══════════════════════════════════════════════════════════
+
+# AWS CLI credentials/cache
+.aws/
+aws/
+
+# SAM (Serverless Application Model)
+.sam/
+samconfig.toml
+
+# CloudFormation outputs
+*.output.json
+*.output.yaml
+
+
+# ═══════════════════════════════════════════════════════════
+# IDE / EDITOR
+# ═══════════════════════════════════════════════════════════
+
+# VS Code
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+!.vscode/*.code-snippets
+.history/
+
+# Visual Studio
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# JetBrains (IntelliJ, PyCharm, GoLand, etc.)
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+.idea_modules/
+
+# Eclipse
+.project
+.classpath
+.settings/
+bin/
+
+# NetBeans
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+# Vim
+*.swp
+*.swo
+*~
+[._]*.s[a-v][a-z]
+[._]*.sw[a-p]
+[._]s[a-rt-v][a-z]
+[._]ss[a-gi-z]
+[._]sw[a-p]
+
+# Emacs
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+auto-save-list
+tramp
+.\#*
+
+# Sublime Text
+*.tmlanguage.cache
+*.sttheme.cache
+*.sublime-workspace
+*.sublime-project
+*.sublime-build
+
+# Kate
+*.kate-swp
+
+# KDevelop
+*.kdev4
+
+# Cursor
+.cursor/
+
+
+# ═══════════════════════════════════════════════════════════
+# OS FILES
+# ═══════════════════════════════════════════════════════════
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+*.stackdump
+[Dd]esktop.ini
+$RECYCLE.BIN/
+
+# macOS
+.DS_Store
+.DS_Store?
+.AppleDouble
+.LSOverride
+Icon
+._*
+.Spotlight-V100
+.Trashes
+
+# Linux
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+.nfs*
+
+
+# ═══════════════════════════════════════════════════════════
+# LOGS / TEMP
+# ═══════════════════════════════════════════════════════════
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.temp
+*.swp
+*.bak
+*.old
+*.orig
+
+# Archive
+*.zip
+*.tar
+*.tar.gz
+*.rar
+*.7z
+
+
+# ═══════════════════════════════════════════════════════════
+# PROJECT-SPECIFIC
+# ═══════════════════════════════════════════════════════════
+
+# Lambda deployment packages (zip generados para deploy)
+*.deploy.zip
+lambda-package/
+lambda-package.zip
+
+# Scripts de prueba locales (no committear)
+test-local/
+local-test/
