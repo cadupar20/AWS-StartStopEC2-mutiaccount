@@ -17,6 +17,8 @@ Lambda function en Python que **apaga y enciende instancias EC2** en todas las c
 
 ## 🏗️ Arquitectura
 
+![Arquitectura CCoE EC2 Scheduler](architecture_exame_AWSStartStop.jpg)
+
 ```
 ┌──────────────────────────────────────────────────────┐
 │         Cuenta Management (Control Tower)             │
